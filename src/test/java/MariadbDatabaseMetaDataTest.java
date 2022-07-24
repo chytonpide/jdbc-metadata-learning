@@ -123,11 +123,26 @@ public class MariadbDatabaseMetaDataTest {
         assertEquals(1, tableCount2 );
     }
 
+    @Test
+    public void getTables_withCatalog_returnsTablesAcrossDbConnection() throws SQLException {
+        //given
+        Connection connToDb1 = DriverManager.getConnection(URL + DB_NAME_1, USER_PROPS);
+        connToDb1.createStatement().execute("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY)");
+        connToDb1.close();
 
-    private static Properties userProps() {
-        Properties props = new Properties();
-        props.setProperty("user",USERNAME);
-        props.setProperty("password",PASSWORD);
-        return props;
+        //when
+        Connection connToDb2 = DriverManager.getConnection(URL + DB_NAME_2, USER_PROPS);
+        DatabaseMetaData db2MetaData = connToDb2.getMetaData();
+        ResultSet rs2 = db2MetaData.getTables(DB_NAME_1, null, TABLE_NAME, null);
+
+        int tableCount2 = 0;
+        while(rs2.next()) {
+            tableCount2 ++;
+        }
+        connToDb2.close();
+
+
+        //then
+        assertEquals(1, tableCount2 );
     }
 }

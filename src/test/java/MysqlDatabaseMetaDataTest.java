@@ -85,7 +85,7 @@ public class MysqlDatabaseMetaDataTest {
     }
 
     @Test
-    public void getTables_withCatalog_returnsTablesOnCurrentlyConnectedDB() throws SQLException {
+    public void getTables_withCatalog_returnsTablesOnDbAsCatalog() throws SQLException {
         //given
         Connection connToDb1 = DriverManager.getConnection(URL + DB_NAME_1, USER_PROPS);
         connToDb1.createStatement().execute("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY)");
@@ -120,6 +120,29 @@ public class MysqlDatabaseMetaDataTest {
 
         //then
         assertEquals(1, tableCount1 );
+        assertEquals(1, tableCount2 );
+    }
+
+    @Test
+    public void getTables_withCatalog_returnsTablesAcrossDbConnection() throws SQLException {
+        //given
+        Connection connToDb1 = DriverManager.getConnection(URL + DB_NAME_1, USER_PROPS);
+        connToDb1.createStatement().execute("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY)");
+        connToDb1.close();
+
+        //when
+        Connection connToDb2 = DriverManager.getConnection(URL + DB_NAME_2, USER_PROPS);
+        DatabaseMetaData db2MetaData = connToDb2.getMetaData();
+        ResultSet rs2 = db2MetaData.getTables(DB_NAME_1, null, TABLE_NAME, null);
+
+        int tableCount2 = 0;
+        while(rs2.next()) {
+            tableCount2 ++;
+        }
+        connToDb2.close();
+
+
+        //then
         assertEquals(1, tableCount2 );
     }
 }
