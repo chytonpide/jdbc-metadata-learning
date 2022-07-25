@@ -1,43 +1,57 @@
 version: "3"
 
 services:
-  postgres:
-    image: postgres:13
-    container_name: postgres
-    restart: always
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: a123456
-    healthcheck:
-      test: [ "CMD", "psql -h localhost -U $$POSTGRES_USER " ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    postgres:
+        image: postgres:13
+        container_name: postgres
+        ports:
+            - "5433:5432"
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: a123456
+        healthcheck:
+            test: ["CMD", "psql -h localhost -U $$POSTGRES_USER "]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
-  mysql:
-    image: mysql:latest
-    container_name: mysql
-    restart: always
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: a123456
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 5
+    mysql:
+        image: mysql:latest
+        container_name: mysql
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: a123456
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 5
 
-  mariadb:
-    image: mariadb:latest
-    container_name: mariadb
-    restart: always
-    ports:
-      - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: a123456
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 5
+    mariadb:
+        image: mariadb:latest
+        container_name: mariadb
+        ports:
+            - "3308:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: a123456
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 5
+
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: mssql
+        ports:
+            - "1434:1433"
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "r00t.R00T"
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    '/opt/mssql-tools/bin/sqlcmd -U sa -P "${SA_PASSWORD}" -Q "SELECT \"READY\"" | grep -q "READY"',
+                ]
+            timeout: 20s
+            retries: 5

@@ -14,6 +14,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.3.3'
     implementation 'org.hsqldb:hsqldb:2.5.2'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:10.2.1.jre8'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
