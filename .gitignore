@@ -88,6 +88,13 @@ gradle-app.setting
 # hsqldb
 hsqldb/*
 !hsqldb/.gitkeep
+
+# vscode
+.vscode
+
+# bin
+bin
+
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
