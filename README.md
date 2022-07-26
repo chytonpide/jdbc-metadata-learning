@@ -3,7 +3,8 @@ The purpose of this repository is to test implementation of java.sql.DatabaseMet
 
 ## Usage
 ### Setup
-setup database for test.
+setup database for test.  
+:warning:oracle db is not supported by docker-compose.yml in this project.
 ```
 docker-compose up -d
 ```
@@ -30,3 +31,5 @@ run test
 ### Mariadb
 ![화면 캡처 2022-07-25 160748](https://user-images.githubusercontent.com/13404470/180718352-5f385539-4899-4cc7-82c1-2da3843d3d74.png)
 
+### Oracledb
+![화면 캡처 2022-07-26 134201](https://user-images.githubusercontent.com/13404470/180925189-4957d491-9cda-484c-93db-ff4cc4ec9270.png)
