@@ -90,10 +90,10 @@ hsqldb/*
 !hsqldb/.gitkeep
 
 # vscode
-.vscode
+.vscode/*
 
 # bin
-bin
+bin/*
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
