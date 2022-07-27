@@ -38,10 +38,9 @@ public class MssqlDatabaseMetaDataTest {
         connToDb1.createStatement().execute("CREATE TABLE " + TABLE_NAME + "(id BIGINT PRIMARY KEY)");
         connToDb1.close();
 
+        //when
         connToDb1 = DriverManager.getConnection(URL + "databaseName=" + DB_NAME_1, USER_PROPS);
         DatabaseMetaData db1MetaData = connToDb1.getMetaData();
-
-        //when
         ResultSet rs1 = db1MetaData.getCatalogs();
         //ResultSetUtils.print(rs1);
         

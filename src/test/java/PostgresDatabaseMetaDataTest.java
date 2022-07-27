@@ -41,10 +41,9 @@ public class PostgresDatabaseMetaDataTest {
         connToDb2.createStatement().execute("CREATE TABLE " + TABLE_NAME + "(id BIGINT PRIMARY KEY)");
         connToDb2.close();
 
+        //when
         connToDb1 = DriverManager.getConnection(URL + DB_NAME_1, USER_PROPS);
         DatabaseMetaData db1MetaData = connToDb1.getMetaData();
-
-        //when
         ResultSet rs1 = db1MetaData.getCatalogs();
         //ResultSetUtils.print(rs1);
 
@@ -74,7 +73,7 @@ public class PostgresDatabaseMetaDataTest {
         //when
         connToDb1 = DriverManager.getConnection(URL + DB_NAME_1, USER_PROPS);
         DatabaseMetaData db1MetaData = connToDb1.getMetaData();
-        ResultSet rs = connToDb1.getMetaData().getTables(null, null, TABLE_NAME, null);
+        ResultSet rs = db1MetaData.getTables(null, null, TABLE_NAME, null);
 
         int tableCount = 0;
         while(rs.next()) {
